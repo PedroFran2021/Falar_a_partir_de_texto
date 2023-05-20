@@ -1,2 +1,2 @@
-# Falar_a_partir_de_texto
+# Falar a partir de texto
 Treinamento básico em python, utilizando a lib playsound e gtts
