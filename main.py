@@ -1,0 +1,83 @@
+from tkinter import *
+from playsound import playsound
+from gtts import *
+import os 
+
+root = Tk() 
+root.title ('Conversor Texto para fala')
+root.geometry('500x420')
+root.maxsize(500,420)
+root.minsize(500,420)
+root.configure(bg='#1d1d1d')
+
+def margem(altura):
+    tela = Canvas(root,
+                  width=500,
+                  height=altura,
+                  bg='#1d1d1d',
+                  bd=0,
+                  highlightthickness=0,
+                  relief='ridge')
+    tela.pack()
+    
+def botao(texto, comando, padx):
+    botao= Button(root,
+                   text=texto,
+                   padx=padx,
+                   pady=20,
+                   command=comando,
+                   fg='#FFFFFF',
+                   activeforeground= '#FFFFFF',
+                   bg='#C69749',
+                   activebackground='#C69749',
+                   relief= FLAT,
+                   font=('Montserrat', 12,'bold')
+    )
+    botao.pack()
+    
+def inicia():
+    texto_inserido =e.get()
+    fala= gTTS(text=texto_inserido,lang='pt', tld='com.br')
+    arquivo_fala='arquivo_fala.mp3'
+    fala.save(arquivo_fala)
+    playsound(arquivo_fala)
+    
+def resetar():
+    e.delete(0,END)
+    os.remove('arquivo_fala.mp3')
+    
+margem(20)
+
+titulo = Label(root, 
+               bg='#1d1d1d', 
+               fg='#FFFFFF', 
+               font=('Montiserrat', 18,'bold'),
+               text='Conversor texto para fala')
+
+titulo.pack()
+
+margem(30)
+
+insere_texto = Label(root, 
+               bg='#1d1d1d', 
+               fg='#FFFFFF', 
+               font=('Montiserrat', 18,'bold'),
+               text='Insira o seu texto')
+
+insere_texto.pack()
+margem(30)
+
+e = Entry(root,
+          width=25, 
+          borderwidth=4, 
+          relief=FLAT, 
+          fg= '#FFFFFF',
+          bg= '#000000',
+          font=('Montserrat', 21, 'bold'),
+          justify=CENTER)
+e.pack()
+botao_iniciar = botao('INICIAR', inicia, 37)
+margem(10)
+
+botao_reset = botao('RESETAR',resetar, 30)
+root.mainloop()
